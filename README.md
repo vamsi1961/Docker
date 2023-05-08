@@ -91,7 +91,7 @@ docker cp ~/Desktop/manipulator-flask man_flask:/root/catkin_ws/src
 
 docker cp local_machine_location  container_name:location in docker
 
-
+Had to write what is docker , container, images, extensions....
 
 
 
