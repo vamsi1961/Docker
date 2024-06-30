@@ -1,97 +1,83 @@
 # Docker-Install
 
-ROS Installation in docker
+## what is docker
 
-create a folder of any name it is better to keep name of container name
- let's say => laugh
- 
- mkdir laugh
- cd laugh
- 
+Docker is an open-source projrct that automates the deployemeny of applications inside software containers, by providing an additional layer of abstraction and automation of operating system-level virtualization on Linux
 
- 
- # Create a new Dockerfile in the directory using a text editor. For example:
- nano Dockerfile
- 
- 
-# In the Dockerfile, add the following code to specify the base image, update the package list, and install ROS Noetic:
+It provides a uniform wrapper around a software package, this wrapper is called docker container which we can ship or build and inside these containers we can run any app anywhere
 
-"""
-FROM ubuntu:20.04
+These are similar to shipping containers. The container is always same regardless the container size 
 
-# Install ROS Noetic
-RUN apt-get update && apt-get install -y \
-    curl \
-    gnupg2 \
-    lsb-release
-RUN curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | apt-key add -
-RUN sh -c 'echo "deb [arch=$(dpkg --print-architecture)] http://packages.ros.org/ros/ubuntu $(lsb_release -cs) main" > /etc/apt/sources.list.d/ros-latest.list'
-RUN apt-get update && apt-get install -y \
-    ros-noetic-desktop-full
+When we want to run the application in my sytem in another system we should check the packages and library version. we can use the docker container without worrying about all the dependencies or the environment setup which your software depends upon
 
-# Set up environment
-RUN echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc
+## Docker vs Virtual machine
 
-# Start a shell by default
-CMD ["/bin/bash"]
+Both have similar resources but work differently
+Containers virtualized the OS instead of hardware and containers are more portable
+
+Each VM have full copy of virtual system that's why they are slow
+
+Containers are an abstraction on the app layer that packages the code and dependencies
+
+Multiple containers can run on same machine and share the same OS kernel but each container runs as isolated process in the user space as a result container takes less space than VM and usually container images typically take tens of MB in comparision of VM. 
 
 
-"""
+## what is docker container
 
-# to source the container 
-source ~/.bashrc
+Docker container is a standard unit of software that packages up code and all its dependencies so the application, runs quickly and reliably from one computing environment to another environment.
 
-
-# Save and close the Dockerfile.
-
-# Build the Docker image using the following command:
-
-docker build -t my_ros_image . 
-
-# name can be any here it is my_rps_image
-
-# Create a docker container
-
-docker run -it --name my_ros_container my_ros_image
-
-# "my_ros_container" is the name of container
-# "my_ros_image" is the image name
-# -it option allows you to interact with the container using a terminal
+When you create a docker container, which is essentially a unit of your software it can run everywhere regardless of the kernel version regardless of the host distro, the only condition is that the container and host architecture should match
 
 
-# Open a new terminal window and start a new bash session inside the container:
+## what is docker image
 
-docker exec -it my_ros_container bash
+A container image is a lightweight, stand-alone, executable package of a piece of software that includes everything needed to run the application that is code your runtime your system tools and the system libraries  and the settings so the container images become container in runtime when the run on docker engine.
 
+Docker image is not a virtual hard disk or VHD it's not a file system. It uses union file system and it's only a read-only layer also the docker image doesn't have any state so when your dicker images runs as docker container inside the docker engine and when you stop these running containers these images will not have or will not save any state so they are stateless.
 
-
-# docker change name of cntainer
-docker rename CONTAINER NEW_NAME
-
-# docker change container image 
-docker tag OldName:tag NewName:tag
+Image is a tar file which has a hierarchy and an arbitrary depth and that's how it fits into your docker registry
 
 
-List docker containers
-        docker ps -a
+Docker images are the basis of containers. They are the blueprint from which containers are created. Images.
+Images are the basis of containers. They are the blueprint from which containers are created. Images include everything
 
-Method 1
+## How does docker work
 
-directory for your docker container
+You can build docker images that hold your applications.
 
-create a directory
+You can create Docker containers from those Docker images to run your applications.
 
-    mkdir my_ros_container
-    
-    
-# copy folder from local machine to docker
+You can share those docker images via Docker Hub or your own registry.
 
-docker cp ~/Desktop/manipulator-flask man_flask:/root/catkin_ws/src
+Dockerfile => Image => Container
+
+### Dockerfile
+
+we can build your applications into docker images so what happens is you pull some images which are already there on dockerhub, we use those images with your application and you write all that code or that script inside your dockerfile.
 
 
-docker cp local_machine_location  container_name:location in docker
+docker can build images automatically by reading the instructions from docker file.
 
-Had to write what is docker , container, images, extensions....
+It is a text document containing all comands a user can call on the command line to assemble an image
 
+search docker images
+
+    docker search <image you want from your docker hub>
+
+pull an docker image
+
+    docker pull <image>
+
+
+## DOCKER HUB
+
+It is a service provider for finding and sharing your container images with your teams or with the general public.
+
+pull docker images to docker hub
+1. tag
+    sudo docker tag image kishore1961/image:version (1.0.0)
+
+2. push
+    sudo docker push kishore1961/image:1.0.0
 
 
