@@ -30,7 +30,7 @@ docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
 ## CONTAINERS
 - Creating a interactive container  from image
 ```
-docker run -it <image name>
+docker run -it <image name> .
 ```
 - Giving Name to a container while creating
 ```

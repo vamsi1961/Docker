@@ -3,22 +3,12 @@
 ## Build the image first
 ### docker build -t r2_path_planning .
 ## then run this script
-xhost local:root
 
-
-XAUTH=/tmp/.docker.xauth
-
-
-docker run -it \
-    --name r1_docker \
-    --env="DISPLAY=$DISPLAY" \
-    --env="QT_X11_NO_MITSHM=1" \
-    --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
-    --env="XAUTHORITY=$XAUTH" \
-    --volume="$XAUTH:$XAUTH" \
-    --net=host \
-    --privileged \
-    linux_test:latest \
+docker run -it --rm \
+    -e DISPLAY=$DISPLAY \
+    -v /tmp/.X11-unix:/tmp/.X11-unix \
+    --name ros2_container \
+    foxy_inst:latest \
     bash
 
 echo "Done."
