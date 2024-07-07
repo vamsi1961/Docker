@@ -34,3 +34,26 @@ RUN apt-get update && \
 #TF2
 RUN	apt-get install -y ros-${ROS_DISTRO}-turtle-tf2 ros-${ROS_DISTRO}-tf2-tools ros-${ROS_DISTRO}-tf && \
 	apt-get install -y evince
+
+# sudo apt install docker.io
+# [21:41] Hari Prasanth
+# sudo apt install docker.io
+ 
+# [21:42] Hari Prasanth
+# docker image ls
+ 
+# [21:43] Hari Prasanth
+# step1: uninstall everything
+ 
+# [21:43] Hari Prasanth
+# step 2: Install docker io with the above commant from linux terminal
+ 
+# [21:43] Hari Prasanth
+# step 3: check if installation was successful
+ 
+# [21:43] Hari Prasanth
+# with the command i shared
+ 
+# [21:44] Hari Prasanth
+# step4: Rerun the step 4 of docker example i gave 
+ 
