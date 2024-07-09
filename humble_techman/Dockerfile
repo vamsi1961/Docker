@@ -31,13 +31,7 @@ RUN if [ ! -f /etc/ros/rosdep/sources.list.d/20-default.list ]; then sudo rosdep
 
 RUN rosdep update
 
-
 RUN sudo apt install python3-vcstool
-
-
-# Source ROS setup in current shell
-# RUN source /opt/ros/$ROS_DISTRO/setup.bash
-
 
 # Add colcon mixin repository if it doesn't already exist
 RUN if ! colcon mixin list | grep -q 'default'; then colcon mixin add default https://raw.githubusercontent.com/colcon/colcon-mixin-repository/master/index.yaml; fi
