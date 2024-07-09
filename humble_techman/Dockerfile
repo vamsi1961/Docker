@@ -26,7 +26,7 @@ RUN sudo apt install python3-rosdep
 
 RUN sudo apt-get install ros-humble-ament-cmake
 
-# # # # Initialize and update rosdep
+# Initialize and update rosdep
 RUN if [ ! -f /etc/ros/rosdep/sources.list.d/20-default.list ]; then sudo rosdep init; fi
 
 RUN rosdep update
