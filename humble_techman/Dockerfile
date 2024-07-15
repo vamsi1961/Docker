@@ -42,7 +42,11 @@ RUN colcon mixin update default
 
 RUN sudo apt install python3-vcstool
 
+WORKDIR /ws_moveit2/src/hello_moveit
+
 WORKDIR /ws_moveit2/src
+
+
 # Move into your Colcon workspace and pull the MoveIt tutorials source:
 	
 RUN git clone --branch humble https://github.com/ros-planning/moveit2_tutorials
@@ -53,8 +57,20 @@ RUN vcs import < moveit2_tutorials/moveit2_tutorials.repos
 
 RUN sudo apt update && rosdep install -r --from-paths . --ignore-src --rosdistro $ROS_DISTRO -y
 WORKDIR /ws_moveit2
+
 RUN /bin/bash -c "source /opt/ros/humble/setup.bash && colcon build --mixin release --parallel-workers 1"
 
-# RUN colcon build --mixin release --parallel-workers 1
+#ADD the hello_moveit to docker
+
+# RUN sudo apt-get install -y python3-ament-cmake 
+
+COPY hello_moveit /ws_moveit2/src/hello_moveit
+
+
+RUN /bin/bash -c "source /opt/ros/humble/setup.bash && colcon build --packages-select hello_moveit --symlink-install"
+
+# RUN colcon build --packages-select hello_moveit --symlink-install
+
+WORKDIR /ws_moveit2
 
 
